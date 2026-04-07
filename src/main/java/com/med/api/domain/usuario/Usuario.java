@@ -24,6 +24,20 @@ public class Usuario implements UserDetails {
     private String login;
     private String senha;
 
+    public Usuario(DadosCadastroUsuario dados, String senhaCriptografada) {
+        this.login = dados.login();
+        this.senha = senhaCriptografada;
+    }
+
+    public void atualizaDados(DadosAtualizacaoUsuario dados, String senhaCriptografada) {
+        if(dados.login() != null) {
+            this.login = dados.login();
+        }
+        if(senhaCriptografada != null) {
+            this.senha = senhaCriptografada;
+        }
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
